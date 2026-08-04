@@ -1,5 +1,5 @@
 ﻿[build]
-  command = "npm run build"
+  command = "npm run build:runtime"
   publish = "dist"
 
 [functions]
@@ -8,4 +8,21 @@
 [[redirects]]
   from = "/api/notion-webhook"
   to = "/.netlify/functions/notion-webhook"
+  status = 200
+
+[[redirects]]
+  from = "/api/sync-notion"
+  to = "/.netlify/functions/sync-notion"
+  status = 200
+
+[[redirects]]
+  from = "/media/*"
+  to = "/.netlify/functions/media?key=:splat"
+  status = 200
+
+# Static files in dist (CSS, JS, 404) are served first. Every other route is
+# resolved from the current version stored in Netlify Blobs.
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/site?path=/:splat"
   status = 200

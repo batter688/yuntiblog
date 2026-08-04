@@ -27,9 +27,6 @@ export default async (request) => {
     return json({ ok: false, error: 'Invalid JSON' }, 400);
   }
 
-  // Notion sends this once when a webhook subscription is created.
-  // Copy the token from the Netlify function log into
-  // NOTION_WEBHOOK_VERIFICATION_TOKEN, then verify the subscription in Notion.
   if (payload.verification_token) {
     console.log(`NOTION_WEBHOOK_VERIFICATION_TOKEN=${payload.verification_token}`);
     return json({ ok: true, verification_token: payload.verification_token });
@@ -46,26 +43,28 @@ export default async (request) => {
     return json({ ok: false, error: 'Invalid webhook signature' }, 401);
   }
 
-  const hook = process.env.NETLIFY_BUILD_HOOK;
-  if (!hook) {
-    return json({ ok: false, error: 'NETLIFY_BUILD_HOOK is not configured' }, 503);
+  const syncToken = process.env.SYNC_TOKEN;
+  if (!syncToken) {
+    return json({ ok: false, error: 'SYNC_TOKEN is not configured' }, 503);
   }
 
-  const response = await fetch(hook, {
+  const syncUrl = new URL('/api/sync-notion', request.url);
+  const response = await fetch(syncUrl, {
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
+    headers: {
+      authorization: `Bearer ${syncToken}`,
+      'content-type': 'application/json'
+    },
     body: JSON.stringify({
-      source: 'notion-webhook',
-      eventId: payload.id || null,
-      eventType: payload.type || null,
-      entity: payload.entity || null
+      reason: payload.type || 'notion-webhook',
+      eventId: payload.id || null
     })
   });
 
   if (!response.ok) {
-    console.error(`Netlify build hook failed: ${response.status} ${await response.text()}`);
-    return json({ ok: false, error: 'Build hook request failed' }, 502);
+    console.error(`Failed to queue Notion sync: ${response.status} ${await response.text()}`);
+    return json({ ok: false, error: 'Failed to queue Notion sync' }, 502);
   }
 
-  return json({ ok: true, buildTriggered: true }, 202);
+  return json({ ok: true, syncQueued: true }, 202);
 };

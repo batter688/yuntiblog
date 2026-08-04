@@ -1,12 +1,17 @@
-{
+﻿{
   "name": "yunti-blog",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "preview": "node scripts/preview.mjs"
+    "build:runtime": "node scripts/build-runtime.mjs",
+    "preview": "node scripts/preview.mjs",
+    "test": "node --test"
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^10.7.9"
   }
 }
