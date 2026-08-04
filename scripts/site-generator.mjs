@@ -53,7 +53,7 @@ function xmlEscape(value = '') {
 function rss(posts) {
   const siteUrl = (process.env.SITE_URL || 'http://localhost:8888').replace(/\/$/, '');
   const items = posts.map((post) => `<item><title>${xmlEscape(post.title)}</title><link>${xmlEscape(siteUrl + postPath(post))}</link><guid isPermaLink="true">${xmlEscape(siteUrl + postPath(post))}</guid><pubDate>${new Date(`${post.date || '1970-01-01'}T00:00:00Z`).toUTCString()}</pubDate><description>${xmlEscape(post.summary || '')}</description></item>`).join('');
-  return `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>${xmlEscape(process.env.SITE_NAME || 'YUNTI NOTES')}</title><link>${xmlEscape(siteUrl)}</link><description>${xmlEscape('YUNTI NOTES blog')}</description>${items}</channel></rss>`;
+  return `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>${xmlEscape(process.env.BLOG_NAME || 'YUNTI NOTES')}</title><link>${xmlEscape(siteUrl)}</link><description>${xmlEscape('YUNTI NOTES blog')}</description>${items}</channel></rss>`;
 }
 
 function notFoundPage() {

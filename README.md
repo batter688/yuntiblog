@@ -62,7 +62,7 @@ npm run preview
 | `NOTION_TOKEN` | 后台同步时读取 Notion |
 | `NOTION_DATA_SOURCE_ID` | 要同步的数据源 ID |
 | `SITE_URL` | 正式站点地址，用于 RSS |
-| `SITE_NAME` | 网站名称 |
+| `BLOG_NAME` | 网站名称 |
 | `SYNC_TOKEN` | 保护手动同步接口和内部后台任务 |
 | `SYNC_DEBOUNCE_MS` | 合并连续 Webhook 事件的等待时间，推荐 `5000` |
 | `NOTION_WEBHOOK_VERIFICATION_TOKEN` | 验证 Notion Webhook HMAC 签名，首次创建订阅后再填写 |
