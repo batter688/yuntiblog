@@ -17,7 +17,7 @@
 
 [[redirects]]
   from = "/media/*"
-  to = "/.netlify/functions/media?key=:splat"
+  to = "/.netlify/functions/media/:splat"
   status = 200
 
 # Static files in dist (CSS, JS, 404) are served first. Every other route is

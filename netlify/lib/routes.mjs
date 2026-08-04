@@ -1,3 +1,28 @@
+export function assetKeyFromRequest(inputUrl) {
+  let url;
+  try {
+    url = inputUrl instanceof URL ? inputUrl : new URL(String(inputUrl));
+  } catch {
+    return null;
+  }
+
+  let candidate = url.searchParams.get('key') || '';
+  if (!candidate) {
+    const match = url.pathname.match(/(?:^|\/)media\/([^/]+)$/i);
+    candidate = match?.[1] || '';
+  }
+
+  try {
+    candidate = decodeURIComponent(candidate).replace(/^\/+/, '');
+  } catch {
+    return null;
+  }
+
+  if (!candidate || candidate.includes('..') || candidate.includes('/') || candidate.includes('\\')) {
+    return null;
+  }
+  return candidate;
+}
 export function routeToBlobPath(inputPath) {
   const decoded = String(inputPath || '/').trim() || '/';
   const path = decoded.startsWith('/') ? decoded : `/${decoded}`;

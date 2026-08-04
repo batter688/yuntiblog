@@ -1,14 +1,12 @@
 import { getAssetStore } from '../lib/blob-site.mjs';
+import { assetKeyFromRequest } from '../lib/routes.mjs';
 
 const IMMUTABLE_CACHE = 'public, durable, max-age=31536000, s-maxage=31536000, immutable';
 
 export default async (request) => {
   try {
-    const url = new URL(request.url);
-    const key = String(url.searchParams.get('key') || '').replace(/^\/+/, '');
-    if (!key || key.includes('..') || key.includes('/') || key.includes('\\')) {
-      return new Response('Bad Request', { status: 400 });
-    }
+    const key = assetKeyFromRequest(request.url);
+    if (!key) return new Response('Bad Request', { status: 400 });
 
     const entry = await getAssetStore().getWithMetadata(key, {
       type: 'arrayBuffer',
