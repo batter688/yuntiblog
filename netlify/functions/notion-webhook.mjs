@@ -1,4 +1,4 @@
-﻿import { createHmac, timingSafeEqual } from 'node:crypto';
+import { createHmac, timingSafeEqual } from 'node:crypto';
 
 const json = (body, status = 200) => Response.json(body, { status });
 

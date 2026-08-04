@@ -1,4 +1,4 @@
-﻿import { isAuthorizedSyncRequest } from '../lib/sync-auth.mjs';
+import { isAuthorizedSyncRequest } from '../lib/sync-auth.mjs';
 
 const json = (body, status = 200) => Response.json(body, { status });
 

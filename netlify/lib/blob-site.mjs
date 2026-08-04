@@ -1,4 +1,4 @@
-﻿import { createHash, randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { getStore } from '@netlify/blobs';
 import { generateSite } from '../../scripts/site-generator.mjs';
 

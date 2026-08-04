@@ -1,4 +1,4 @@
-﻿export function routeToBlobPath(inputPath) {
+export function routeToBlobPath(inputPath) {
   const decoded = String(inputPath || '/').trim() || '/';
   const path = decoded.startsWith('/') ? decoded : `/${decoded}`;
   if (path.includes('..') || path.includes('\\')) return null;

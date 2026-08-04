@@ -1,4 +1,4 @@
-﻿import { runQueuedSync } from '../lib/blob-site.mjs';
+import { runQueuedSync } from '../lib/blob-site.mjs';
 import { isAuthorizedSyncRequest } from '../lib/sync-auth.mjs';
 
 export default async (request) => {

@@ -1,4 +1,4 @@
-﻿# 云梯笔记：Notion → Netlify Blobs
+# 云梯笔记：Notion → Netlify Blobs
 
 这个项目使用 Notion 作为内容后台，并将页面运行时内容存储在 Netlify Blobs。
 

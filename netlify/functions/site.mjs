@@ -1,4 +1,4 @@
-﻿import { getPageStore } from '../lib/blob-site.mjs';
+import { getPageStore } from '../lib/blob-site.mjs';
 import { contentTypeFromMetadata, routeToBlobPath } from '../lib/routes.mjs';
 
 const PAGE_CACHE = 'public, durable, s-maxage=60, stale-while-revalidate=300';

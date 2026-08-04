@@ -1,4 +1,4 @@
-﻿import { getAssetStore } from '../lib/blob-site.mjs';
+import { getAssetStore } from '../lib/blob-site.mjs';
 
 const IMMUTABLE_CACHE = 'public, durable, max-age=31536000, s-maxage=31536000, immutable';
 

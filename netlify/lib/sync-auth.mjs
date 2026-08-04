@@ -1,4 +1,4 @@
-﻿import { timingSafeEqual } from 'node:crypto';
+import { timingSafeEqual } from 'node:crypto';
 
 function safeEqual(left, right) {
   const leftBuffer = Buffer.from(String(left || ''));

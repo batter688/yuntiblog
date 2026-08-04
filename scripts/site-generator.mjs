@@ -1,4 +1,4 @@
-﻿import { getBlockChildren, normalizePage, prepareEnvironment, queryAllPages, queryPosts } from './notion-client.mjs';
+import { getBlockChildren, normalizePage, prepareEnvironment, queryAllPages, queryPosts } from './notion-client.mjs';
 import { escapeHtml, renderBlocks, slugify } from './notion-blocks.mjs';
 import {
   archivePage,
