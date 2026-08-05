@@ -34,7 +34,7 @@ test('Notion webhook validates signatures and queues a sync', async () => {
       body
     }));
 
-    assert.equal(response.status, 202);
+    assert.equal(response.status, 200);
     assert.equal(queuedRequest.request, 'https://example.netlify.app/api/sync-notion');
     assert.equal(queuedRequest.options.headers.authorization, 'Bearer sync-secret');
   } finally {

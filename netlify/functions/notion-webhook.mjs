@@ -28,7 +28,7 @@ export default async (request) => {
   }
 
   if (payload.verification_token) {
-    console.log(`NOTION_WEBHOOK_VERIFICATION_TOKEN=${payload.verification_token}`);
+    console.log('Received Notion webhook verification request.');
     return json({ ok: true, verification_token: payload.verification_token });
   }
 
@@ -43,6 +43,10 @@ export default async (request) => {
     return json({ ok: false, error: 'Invalid webhook signature' }, 401);
   }
 
+  const eventType = payload.type || 'notion-webhook';
+  const eventId = payload.id || 'unknown';
+  console.log(`Accepted Notion webhook event: type=${eventType}, id=${eventId}`);
+
   const syncToken = process.env.SYNC_TOKEN;
   if (!syncToken) {
     return json({ ok: false, error: 'SYNC_TOKEN is not configured' }, 503);
@@ -56,7 +60,7 @@ export default async (request) => {
       'content-type': 'application/json'
     },
     body: JSON.stringify({
-      reason: payload.type || 'notion-webhook',
+      reason: eventType,
       eventId: payload.id || null
     })
   });
@@ -66,5 +70,6 @@ export default async (request) => {
     return json({ ok: false, error: 'Failed to queue Notion sync' }, 502);
   }
 
-  return json({ ok: true, syncQueued: true }, 202);
+  console.log(`Notion webhook sync queued: type=${eventType}, id=${eventId}`);
+  return json({ ok: true, syncQueued: true });
 };
